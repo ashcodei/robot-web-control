@@ -28,6 +28,21 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## Add your wok credentials before starting
+
+The wok needs your NextRobot account credentials. Easiest way: start the app, open
+the **Wok** section → **Wok Setup**, enter your **Client ID**, **Client Secret**, and
+**Restaurant ID** (plus a **Machine ID** if you have more than one machine), and **Save**.
+
+Or set them in a file instead:
+
+```bash
+cp config/wok_credentials.example.json config/wok_credentials.json
+# edit config/wok_credentials.json with your client_id / client_secret / restaurant_id
+```
+
+(The arm, hands, and gripper don't need this.)
+
 ## Run
 
 ```bash
