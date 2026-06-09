@@ -508,6 +508,42 @@ def api_wok_connect(body):
     return {"ok": True, "robot": WOK_ROBOT, "seasonings": WOK_SEASONINGS}
 
 
+def _read_wok_file():
+    try:
+        with open(os.path.join(HERE, "config", "wok_credentials.json"), encoding="utf-8") as fh:
+            return json.load(fh)
+    except Exception:
+        return {}
+
+
+def api_wok_config_get(_):
+    cfg = _load_wok_config()
+    return {"api_host": cfg["api_host"], "client_id": cfg["client_id"],
+            "restaurant_id": cfg["restaurant_id"], "machine_sn": cfg.get("machine_sn", ""),
+            "has_secret": bool(cfg["client_secret"])}
+
+
+def api_wok_config_save(body):
+    global WOK
+    cur = _read_wok_file()
+    out = {
+        "api_host": (body.get("api_host") or cur.get("api_host") or "https://api.nextrobot.com").strip(),
+        "client_id": (body.get("client_id") or "").strip(),
+        "client_secret": ((body.get("client_secret") or "").strip() or cur.get("client_secret", "")),
+        "restaurant_id": (body.get("restaurant_id") or "").strip(),
+        "machine_sn": (body.get("machine_sn") or "").strip(),
+    }
+    path = os.path.join(HERE, "config", "wok_credentials.json")
+    try:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(out, fh, indent=2, ensure_ascii=False)
+    except Exception as e:
+        return {"ok": False, "msg": str(e)}
+    WOK = WokClient(language=WOK.language)
+    return {"ok": True, "configured": WOK.configured}
+
+
 def api_wok_seasonings(_):
     return {"seasonings": WOK_SEASONINGS}
 
@@ -540,6 +576,8 @@ ROUTES = {
     "/api/gripper/connect": api_gripper_connect,
     "/api/gripper/set": api_gripper_set,
     "/api/wok/connect": api_wok_connect,
+    "/api/wok/config_get": api_wok_config_get,
+    "/api/wok/config_save": api_wok_config_save,
     "/api/wok/seasonings": api_wok_seasonings,
     "/api/wok/action": api_wok_action,
     "/api/wok/command": api_wok_command,

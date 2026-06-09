@@ -236,14 +236,19 @@
         <h3 data-i18n="wok_conn">Wok Connection</h3>
         <p class="hint" data-i18n="wok_conn_hint">Connect to the NextRobot cloud API.</p>
         <div class="row">
-          <label class="field" style="flex:1"><span data-i18n="machine_id">Machine ID</span>
-            <input type="text" id="w-machine" placeholder="optional"></label>
-        </div>
-        <div class="row">
           <button class="btn" id="btn-wok-conn" onclick="doConnect('wok')" data-i18n="connect">Connect</button>
           <button class="btn ghost" onclick="wokStatus()" data-i18n="refresh_status">Refresh Status</button>
         </div>
         <div class="joints" id="wok-info">—</div>
+        <div class="divider"></div>
+        <details class="collapse">
+          <summary class="csum"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span data-i18n="wok_setup">Wok Setup</span></summary>
+          <div class="row"><label class="field" style="flex:1"><span data-i18n="client_id">Client ID</span><input type="text" id="wc-id"></label></div>
+          <div class="row"><label class="field" style="flex:1"><span data-i18n="client_secret">Client Secret</span><input type="password" id="wc-secret" autocomplete="off"></label></div>
+          <div class="row"><label class="field" style="flex:1"><span data-i18n="restaurant_id">Restaurant ID</span><input type="text" id="wc-rest"></label></div>
+          <div class="row"><label class="field" style="flex:1"><span data-i18n="machine_id">Machine ID</span><input type="text" id="w-machine" placeholder="optional"></label></div>
+          <div class="row"><button class="btn" onclick="wokSaveConfig()" data-i18n="save">Save</button><span id="wc-status" class="badge"></span></div>
+        </details>
       </div>
 
       <div class="card">
@@ -349,7 +354,7 @@ const I18N = {
     confirm_test:"⚠ WARNING: the robot will MOVE. Make sure everyone is clear of the arms. Run 'test_pose' now?",moving_warn:"⚠ Robot moving — stay clear",
     hand_left:"Left Hand",hand_right:"Right Hand",open:"Open",close:"Close",
     finger_pos:"Fingers (0 closed – 255 open)",gripper:"Gripper",opening:"Opening (0 closed – 100 open)",
-    wok_conn:"Wok Connection",machine_id:"Machine ID",wok_conn_hint:"Connect to the NextRobot cloud API.",refresh_status:"Refresh Status",
+    wok_conn:"Wok Connection",machine_id:"Machine ID",wok_setup:"Wok Setup",client_id:"Client ID",client_secret:"Client Secret",restaurant_id:"Restaurant ID",save:"Save",configured:"Configured",not_set:"Not set",saved:"Saved",wok_conn_hint:"Connect to the NextRobot cloud API.",refresh_status:"Refresh Status",
     wok_status:"Live Status",angle:"Angle",power:"Power",temp:"Temp",
     heating:"Heating",target_temp:"Target °C",start_heat:"Start Heating",stop_heat:"Stop",
     rotation:"Rotation",rot_speed:"Speed (100–3000)",direction:"Direction",start_rot:"Start Rotation",cw:"Clockwise",ccw:"Counterclockwise",
@@ -377,7 +382,7 @@ const I18N = {
     confirm_test:"⚠ 警告：机器人将会运动，请确保所有人远离手臂。现在运行 test_pose？",moving_warn:"⚠ 机器人运动中 — 请远离",
     hand_left:"左手",hand_right:"右手",open:"张开",close:"闭合",
     finger_pos:"手指 (0 闭合 – 255 张开)",gripper:"夹爪",opening:"开度 (0 闭合 – 100 张开)",
-    wok_conn:"炒锅连接",machine_id:"机器 SN",wok_conn_hint:"连接 NextRobot 云端 API。",refresh_status:"刷新状态",
+    wok_conn:"炒锅连接",machine_id:"机器 SN",wok_setup:"炒锅设置",client_id:"Client ID",client_secret:"Client Secret",restaurant_id:"Restaurant ID",save:"保存",configured:"已配置",not_set:"未设置",saved:"已保存",wok_conn_hint:"连接 NextRobot 云端 API。",refresh_status:"刷新状态",
     wok_status:"实时状态",angle:"角度",power:"功率",temp:"温度",
     heating:"加热",target_temp:"目标 °C",start_heat:"开始加热",stop_heat:"停止",
     rotation:"旋转",rot_speed:"速度 (100–3000)",direction:"方向",start_rot:"开始旋转",cw:"顺时针",ccw:"逆时针",
@@ -552,10 +557,23 @@ function renderHist(){
 function pushHist(action,label,status){ HIST.unshift({action,label,status,
   time:new Date().toLocaleTimeString()}); if(HIST.length>40)HIST.pop(); renderHist(); }
 
+async function wokLoadConfig(){
+  const j=await api('/api/wok/config_get','GET');
+  if(!j) return;
+  const set=(id,v)=>{const e=document.getElementById(id); if(e) e.value=v||"";};
+  set("wc-id", j.client_id); set("wc-rest", j.restaurant_id); set("w-machine", j.machine_sn);
+  const sec=document.getElementById("wc-secret"); if(sec) sec.placeholder=j.has_secret?("\u2022\u2022\u2022\u2022\u2022\u2022 ("+t("saved")+")"):"";
+  const st=document.getElementById("wc-status");
+  if(st) st.textContent=(j.client_id&&j.has_secret&&j.restaurant_id)?t("configured"):t("not_set");
+}
+async function wokSaveConfig(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():"";};
+  const j=await api('/api/wok/config_save','POST',{client_id:g("wc-id"),client_secret:g("wc-secret"),restaurant_id:g("wc-rest"),machine_sn:g("w-machine")});
+  if(j&&j.ok){ toast(t("saved"),"ok"); const s=document.getElementById("wc-secret"); if(s) s.value=""; wokLoadConfig(); }
+}
 async function wokConnect(){
   toast(t("wok_connecting"));
   const _el=document.getElementById("w-machine"); const sn=_el?_el.value.trim():"";
-  localStorage.setItem("wok_sn", sn);
   const j=await api('/api/wok/connect','POST',{language:lang, sn});
   if(j.ok){ const r=j.robot||{};
     document.getElementById("wok-info").textContent=`${r.name||"?"} · sn:${r.sn||"—"} · ${r.robotType||""}`;
@@ -607,7 +625,7 @@ async function wokStatus(){
 
 // ───────── init ─────────
 applyI18n();
-(function(){const m=document.getElementById("w-machine"); if(m) m.value=localStorage.getItem("wok_sn")||"";})();
+wokLoadConfig();
 poll();
 setInterval(poll,1500);
 </script>
