@@ -1,0 +1,2077 @@
+{
+  "poses": {},
+  "steps": [
+    {
+      "name": "Box_2_Wok",
+      "poses": [
+        {
+          "name": "pose_1",
+          "timestamp": "2026-02-18 13:22:17",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -0.00019180590524214836,
+            -0.00019180590524214836,
+            -0.0005754177157246687,
+            -0.00019180590524214836,
+            -0.00019180590524214836,
+            -0.00019180590524214836,
+            -0.00019180590524214836
+          ],
+          "position": {
+            "x": 0.0049443048240791175,
+            "y": -0.21488257175538092,
+            "z": -0.579497214689821
+          },
+          "euler": {
+            "x": 0.0003837957297847028,
+            "y": -0.000575270490671564,
+            "z": -0.0007672972669795434
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_2",
+          "timestamp": "2026-02-18 13:22:50",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.3726788738841833,
+            -0.018221560997940145,
+            -0.11143923094529562,
+            -0.6009279011215387,
+            -0.0021098649576565265,
+            -0.23035889219501016,
+            -0.00019180590524214836
+          ],
+          "position": {
+            "x": 0.0004258042612719226,
+            "y": -0.22796663299918263,
+            "z": -0.5407257688614301
+          },
+          "euler": {
+            "x": -0.0256313668327324,
+            "y": -0.4588132348737977,
+            "z": -0.10103985485524038
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_3",
+          "timestamp": "2026-02-18 13:23:20",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.49811993591210957,
+            -0.09072419317921643,
+            -0.3070812542915995,
+            -0.6231773861295498,
+            -0.08190112153810958,
+            -1.0555078965438316,
+            -0.2633495078965442
+          ],
+          "position": {
+            "x": -6.067260198097668e-06,
+            "y": -0.24361891461634302,
+            "z": -0.4603152632743436
+          },
+          "euler": {
+            "x": 0.11003493735594315,
+            "y": -1.1783513219879156,
+            "z": -0.25220774677635155
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_4",
+          "timestamp": "2026-02-18 13:23:48",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.792733806363012,
+            -0.028195468070496332,
+            -0.19545021744106172,
+            -1.3907846189059292,
+            -0.15708903639276706,
+            -0.8368491645685516,
+            -0.26143144884412983
+          ],
+          "position": {
+            "x": 0.0271678586108053,
+            "y": -0.2634267467807151,
+            "z": -0.3487803625906005
+          },
+          "euler": {
+            "x": 0.02184651861324002,
+            "y": -1.4476783069027843,
+            "z": -0.04905562633785369
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_5",
+          "timestamp": "2026-02-18 13:24:32",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.24723781185625882,
+            0.05389745937285362,
+            -1.3029375143053326,
+            -1.6320764476997027,
+            0.4486340123598094,
+            -0.3653902494850083,
+            -0.4724179446097505
+          ],
+          "position": {
+            "x": 0.06252089531868663,
+            "y": -0.49372297333504417,
+            "z": -0.23002695330170567
+          },
+          "euler": {
+            "x": -1.5524632198873758,
+            "y": -0.7708440219721863,
+            "z": 0.8612183433381836
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_6",
+          "timestamp": "2026-02-18 13:25:03",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.3492785534447229,
+            0.2602806134126787,
+            -1.6493389791714357,
+            -1.255753261615931,
+            0.15632181277180024,
+            -0.40260059510185364,
+            -0.7325067521171889
+          ],
+          "position": {
+            "x": -0.06214799842893469,
+            "y": -0.5717375880580438,
+            "z": -0.22831529755048496
+          },
+          "euler": {
+            "x": -1.4435220903348556,
+            "y": -0.9689623577635903,
+            "z": 0.6230267372924073
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_7_hand",
+          "timestamp": "2026-02-18 13:25:48",
+          "arm": "right",
+          "pose_type": "hand_only",
+          "joints": [
+            0.35234744792858663,
+            0.2602806134126787,
+            -1.6493389791714357,
+            -1.255753261615931,
+            0.15632181277180024,
+            -0.40260059510185364,
+            -0.7325067521171889
+          ],
+          "position": {
+            "x": -0.06284838022811205,
+            "y": -0.5717375880580438,
+            "z": -0.2281234970514699
+          },
+          "euler": {
+            "x": -1.4403706351010503,
+            "y": -0.9664677346291175,
+            "z": 0.6204312216485769
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            1,
+            254,
+            254,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_8",
+          "timestamp": "2026-02-18 13:27:17",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.5851998168917376,
+            0.3331668574044393,
+            -1.7797669947356383,
+            -1.061645685511559,
+            -0.010932936598763376,
+            -0.2188505378805221,
+            -0.8276424811169605
+          ],
+          "position": {
+            "x": -0.16868452971080683,
+            "y": -0.5929809476187038,
+            "z": -0.2227224977128723
+          },
+          "euler": {
+            "x": -1.0321104773231045,
+            "y": -1.0532799861766007,
+            "z": 0.10294662457678178
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            1,
+            254,
+            254,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_9",
+          "timestamp": "2026-02-18 13:28:01",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.6891586175326161,
+            0.04162188143740053,
+            -1.9182508583199827,
+            -1.0489864957656216,
+            -0.1609251544975958,
+            -0.22805722133211326,
+            -1.0186811627374688
+          ],
+          "position": {
+            "x": -0.27510704045051076,
+            "y": -0.4868326182426328,
+            "z": -0.2536623280580752
+          },
+          "euler": {
+            "x": -0.6223294691069909,
+            "y": -1.0999171376815364,
+            "z": -0.39276556939421103
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            1,
+            254,
+            254,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_10",
+          "timestamp": "2026-02-18 13:28:35",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.9289159990844578,
+            0.2867498283360028,
+            -1.2572877088578611,
+            -0.6435088120851464,
+            -1.072386816205082,
+            -0.37689860379949636,
+            -0.8656200503547726
+          ],
+          "position": {
+            "x": -0.2804489661047911,
+            "y": -0.5452736629831588,
+            "z": -0.2674360095109085
+          },
+          "euler": {
+            "x": 0.1332018693072838,
+            "y": -1.3492472487163885,
+            "z": -1.2130586972860475
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            1,
+            254,
+            254,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_11",
+          "timestamp": "2026-02-18 13:30:57",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.7666482032501722,
+            -0.11987869077592173,
+            -1.2062673380636308,
+            -0.7428642710002293,
+            -1.0179139391165037,
+            -0.7167786678873895,
+            -1.1529452964065001
+          ],
+          "position": {
+            "x": -0.26130779447815583,
+            "y": -0.38549228313236245,
+            "z": -0.34350915586110375
+          },
+          "euler": {
+            "x": 0.4359701783164548,
+            "y": -1.3901045608911256,
+            "z": -1.3485726746890054
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            2,
+            253,
+            253,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_15",
+          "timestamp": "2026-02-18 14:17:33",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.5967081712062257,
+            -0.05159578850995672,
+            -1.5039501029983988,
+            -0.12371480888075048,
+            -0.9469457541771575,
+            -1.0367109178301668,
+            -1.251533531700618
+          ],
+          "position": {
+            "x": -0.298256497346893,
+            "y": -0.3062928671371702,
+            "z": -0.3870669499680821
+          },
+          "euler": {
+            "x": -0.24994196359730975,
+            "y": -1.2573110866919726,
+            "z": -1.013511821079273
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            3,
+            252,
+            252,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_12",
+          "timestamp": "2026-02-18 13:31:50",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.5921048294804319,
+            -0.027811856260013812,
+            -1.2661107804989697,
+            -0.18624353398947058,
+            -1.0689343099107358,
+            -1.032874799725338,
+            -1.1529452964065001
+          ],
+          "position": {
+            "x": -0.2793202655488706,
+            "y": -0.3341878449590654,
+            "z": -0.39300128681575097
+          },
+          "euler": {
+            "x": -0.23018718508466804,
+            "y": -1.280355243127815,
+            "z": -0.9858491042633455
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            2,
+            253,
+            253,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_16",
+          "timestamp": "2026-02-18 13:41:21",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.5456878004119936,
+            -0.0036443121995883843,
+            -1.3823451590753049,
+            -0.08075028610666024,
+            -0.8602494850080102,
+            -1.1237907988097966,
+            -1.147191119249257
+          ],
+          "position": {
+            "x": -0.2630258050936232,
+            "y": -0.32925965825202524,
+            "z": -0.40420028290120047
+          },
+          "euler": {
+            "x": -0.30620788900984375,
+            "y": -1.2045411630328864,
+            "z": -0.8512376898054241
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            3,
+            252,
+            252,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_13_hand",
+          "timestamp": "2026-02-18 13:34:37",
+          "arm": "right",
+          "pose_type": "hand_only",
+          "joints": [
+            0.4915985351338996,
+            0.03816937514305252,
+            -1.4690414282444504,
+            0.019372396429389482,
+            -0.8901712062256806,
+            -1.2265987640192257,
+            -1.1955262073701078
+          ],
+          "position": {
+            "x": -0.2521107932466865,
+            "y": -0.3271690572121194,
+            "z": -0.4067911674611864
+          },
+          "euler": {
+            "x": -0.4688984269310025,
+            "y": -1.2412764627546073,
+            "z": -0.7477707543930348
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            230,
+            2,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_17",
+          "timestamp": "2026-02-18 13:47:01",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.6600041199359126,
+            0.03433325703822376,
+            -1.38311238269627,
+            -0.41142366674296227,
+            -0.8890203707942312,
+            -0.8291769283588923,
+            -1.2546024261844817
+          ],
+          "position": {
+            "x": -0.2698967746624713,
+            "y": -0.4028668473066177,
+            "z": -0.3620255730070084
+          },
+          "euler": {
+            "x": -0.04604034213087183,
+            "y": -1.3616770079098024,
+            "z": -0.8974967839458736
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            232,
+            3,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_18",
+          "timestamp": "2026-02-18 13:48:07",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.7233000686655995,
+            0.2867498283360028,
+            -0.648879377431907,
+            -0.931601281757839,
+            -1.1468075074387727,
+            -0.7873632410162514,
+            -0.8871023117418169
+          ],
+          "position": {
+            "x": -0.07715523326606652,
+            "y": -0.5032604399765589,
+            "z": -0.3298109142663383
+          },
+          "euler": {
+            "x": 1.7609207969276368,
+            "y": -1.4730120582997865,
+            "z": -2.2340296436513243
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            233,
+            4,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_19",
+          "timestamp": "2026-02-18 13:48:44",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.08535362783245581,
+            0.9300668345159071,
+            -0.15363653009842082,
+            -1.0585767910276953,
+            -1.2369562829022662,
+            -0.3596360723277634,
+            -0.8084618905928131
+          ],
+          "position": {
+            "x": 0.24738962152781546,
+            "y": -0.5514058508309794,
+            "z": -0.18564645760907103
+          },
+          "euler": {
+            "x": 2.718676949606689,
+            "y": -1.3077668251773984,
+            "z": -2.500464819271001
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            233,
+            4,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_20",
+          "timestamp": "2026-02-18 13:49:26",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -0.1789549095902938,
+            0.3991480888075092,
+            -0.21539803158617588,
+            -1.4042110322728316,
+            -0.2526083772030212,
+            0.06041886015106357,
+            -0.8122980086976419
+          ],
+          "position": {
+            "x": 0.3339414848112352,
+            "y": -0.36021585294805725,
+            "z": -0.22333822478112975
+          },
+          "euler": {
+            "x": -1.1892714537321791,
+            "y": -1.4706642536923538,
+            "z": 1.731127290501278
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            233,
+            4,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_21",
+          "timestamp": "2026-02-18 13:49:56",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -0.648112153810942,
+            0.08765529869535271,
+            -0.22575555046921636,
+            -1.345134813458456,
+            0.05773357747768415,
+            0.04353994048981491,
+            -1.1276269169146254
+          ],
+          "position": {
+            "x": 0.419649419084543,
+            "y": -0.2590212680254434,
+            "z": -0.10185365649262887
+          },
+          "euler": {
+            "x": -2.053138104269029,
+            "y": -1.1904975211293904,
+            "z": 2.921625689300414
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            233,
+            4,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_22",
+          "timestamp": "2026-02-18 13:50:23",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -0.7451659418631262,
+            -0.09954726482032505,
+            -0.09839642938887572,
+            -1.2135559624628058,
+            0.26143144884412806,
+            0.040854657816433715,
+            -1.1349155413138021
+          ],
+          "position": {
+            "x": 0.4451986431448392,
+            "y": -0.1568379036325516,
+            "z": -0.10151783707101811
+          },
+          "euler": {
+            "x": -1.705996597185955,
+            "y": -1.2161023241761937,
+            "z": 2.756253342128028
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            233,
+            4,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_23",
+          "timestamp": "2026-02-18 13:50:49",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -0.9576868848706788,
+            -0.06578942549782596,
+            -0.12294758525978366,
+            -0.9085845731288629,
+            0.4198631265735884,
+            0.09034058136873391,
+            -0.4467159533073932
+          ],
+          "position": {
+            "x": 0.5158713028113596,
+            "y": -0.19427691027052943,
+            "z": -0.08298745824962249
+          },
+          "euler": {
+            "x": -1.7755838045695527,
+            "y": -1.2363827499427127,
+            "z": 2.111466649761775
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            233,
+            4,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_24",
+          "timestamp": "2026-02-18 13:51:25",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -1.0758393224994283,
+            -0.09954726482032505,
+            -0.15747264820324958,
+            -0.7555234607461667,
+            0.5779111924925626,
+            -0.03586770428015562,
+            -0.4382764934767671
+          ],
+          "position": {
+            "x": 0.5316953936097242,
+            "y": -0.17444555685509053,
+            "z": -0.0545264508167181
+          },
+          "euler": {
+            "x": -1.7848176998796303,
+            "y": -1.0935364077828524,
+            "z": 2.1452335680828813
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            233,
+            4,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_42",
+          "timestamp": "2026-02-18 14:08:06",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -1.1168857862211041,
+            -0.134839551384756,
+            -0.163610437170977,
+            -0.5456878004119936,
+            0.8579478141451133,
+            -0.11527534905012615,
+            -0.21117830167086282
+          ],
+          "position": {
+            "x": 0.5445138814068418,
+            "y": -0.14856469355816943,
+            "z": -0.08450769718514231
+          },
+          "euler": {
+            "x": -1.6407713061604514,
+            "y": -0.8909165936797064,
+            "z": 1.89383619186232
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            235,
+            5,
+            218,
+            216,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_25",
+          "timestamp": "2026-02-18 14:09:15",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -1.0470684367132073,
+            -0.15248569466697148,
+            0.16169237811856263,
+            -0.6500302128633564,
+            2.2780787365529864,
+            -0.04507438773174677,
+            -0.025893797207599434
+          ],
+          "position": {
+            "x": 0.5294054426807209,
+            "y": -0.10039672372898654,
+            "z": -0.10299235891109342
+          },
+          "euler": {
+            "x": -1.6845968952686112,
+            "y": 0.7711810184554839,
+            "z": 1.726453761188363
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            235,
+            5,
+            218,
+            216,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_43",
+          "timestamp": "2026-02-18 14:20:54",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -1.0225172808422993,
+            -0.19698466468299536,
+            -0.08343556878004144,
+            -0.6964472419317929,
+            0.6477285420004577,
+            0.06732387273975782,
+            -0.2081094071869991
+          ],
+          "position": {
+            "x": 0.5294809056995162,
+            "y": -0.12377468794768631,
+            "z": -0.10245642725231585
+          },
+          "euler": {
+            "x": -1.556782836724821,
+            "y": -1.0946256198044024,
+            "z": 1.8119932087066684
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            237,
+            6,
+            218,
+            216,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_26",
+          "timestamp": "2026-02-18 14:12:37",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -0.5157660791943233,
+            -0.00019180590524214836,
+            -0.040854657816433715,
+            -1.585275806820782,
+            0.34045548180361607,
+            -0.10491783016708567,
+            -0.4985035477225903
+          ],
+          "position": {
+            "x": 0.38933752010945555,
+            "y": -0.19794891303128181,
+            "z": -0.07883917416575448
+          },
+          "euler": {
+            "x": -2.214409621810265,
+            "y": -0.8672079940939678,
+            "z": 2.5946751447471303
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            235,
+            5,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_27",
+          "timestamp": "2026-02-18 13:58:02",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -0.289435111009384,
+            0.20926024261844667,
+            -0.04622522316319433,
+            -1.7502288853284504,
+            0.055815518425267996,
+            -0.05619913023575229,
+            -0.5245891508354301
+          ],
+          "position": {
+            "x": 0.3405218801680341,
+            "y": -0.24576214488795237,
+            "z": -0.11553881991008445
+          },
+          "euler": {
+            "x": -2.1827277108276446,
+            "y": -0.9812416581117216,
+            "z": 2.641414323805109
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            235,
+            5,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_28",
+          "timestamp": "2026-02-18 13:58:28",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -0.1866271457999531,
+            0.5629503318837266,
+            -0.3627049668116271,
+            -1.559957427328909,
+            -0.13023620965896043,
+            0.03932021057450186,
+            -1.285291371023117
+          ],
+          "position": {
+            "x": 0.3018195464508961,
+            "y": -0.3999710688409637,
+            "z": -0.14699367515516856
+          },
+          "euler": {
+            "x": -1.075812053662303,
+            "y": -1.1106744068724679,
+            "z": 1.9598217368607798
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            235,
+            5,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_29",
+          "timestamp": "2026-02-18 13:58:59",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -0.0013426413366897094,
+            0.36577386129548906,
+            -1.387332112611583,
+            -1.2430940718699937,
+            -0.12755092698557924,
+            0.12793453879606353,
+            -1.3412986953536272
+          ],
+          "position": {
+            "x": 0.09650572958724571,
+            "y": -0.566026872169559,
+            "z": -0.24939532013548305
+          },
+          "euler": {
+            "x": 1.9306638115261063,
+            "y": -1.4563680895429256,
+            "z": -1.9814107370777192
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            235,
+            5,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_30",
+          "timestamp": "2026-02-18 13:59:19",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -0.016303501945525767,
+            0.27946120393682605,
+            -1.6976740672922865,
+            -1.2484646372167543,
+            -0.13944289311055158,
+            0.025510185397115137,
+            -0.472034332799268
+          ],
+          "position": {
+            "x": -0.008905534660985835,
+            "y": -0.5917363447689682,
+            "z": -0.27039260924534014
+          },
+          "euler": {
+            "x": 1.6796577369115007,
+            "y": -1.3669514476884221,
+            "z": -2.900157224925374
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            235,
+            5,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_31",
+          "timestamp": "2026-02-18 13:59:40",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.44518150606546314,
+            0.21271274891279468,
+            -1.4663561455710692,
+            -1.1563978027008464,
+            -0.48162462806134165,
+            -0.009398489356831519,
+            -0.9093517967498279
+          ],
+          "position": {
+            "x": -0.0740697495969457,
+            "y": -0.5531678792848288,
+            "z": -0.29888870119119276
+          },
+          "euler": {
+            "x": 0.927461996371426,
+            "y": -1.3554326393849971,
+            "z": -1.589978671408477
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            235,
+            5,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_32",
+          "timestamp": "2026-02-18 14:00:12",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.4520865186541556,
+            0.28214648661020725,
+            -1.198211490043489,
+            -0.7831435111009384,
+            0.08343556878004144,
+            -0.7911993591210802,
+            -0.943109636072327
+          ],
+          "position": {
+            "x": -0.027278709872028246,
+            "y": -0.514078356994322,
+            "z": -0.350753175225226
+          },
+          "euler": {
+            "x": -0.7111725157150061,
+            "y": -0.9843333983009217,
+            "z": 0.5796887168637097
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            235,
+            5,
+            218,
+            217,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_33_hand",
+          "timestamp": "2026-02-18 14:01:01",
+          "arm": "right",
+          "pose_type": "hand_only",
+          "joints": [
+            0.4520865186541556,
+            0.2817628747997247,
+            -1.1978278782330047,
+            -0.7831435111009384,
+            0.08381918059052396,
+            -0.7911993591210802,
+            -0.943109636072327
+          ],
+          "position": {
+            "x": -0.0272557697545079,
+            "y": -0.513887134591754,
+            "z": -0.3509281275478331
+          },
+          "euler": {
+            "x": -0.709995396071967,
+            "y": -0.9842523932756061,
+            "z": 0.5790870565599943
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            1,
+            254,
+            254,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_44",
+          "timestamp": "2026-02-18 14:14:30",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.4352075989929052,
+            0.4639784847791262,
+            -1.276084687571526,
+            -1.0025694666971852,
+            -0.0849700160219733,
+            -0.45208651865415383,
+            -0.9668935683222699
+          ],
+          "position": {
+            "x": 0.004506065671695626,
+            "y": -0.5927979616175653,
+            "z": -0.2549107715354382
+          },
+          "euler": {
+            "x": -1.0004197444801597,
+            "y": -1.0620850980902459,
+            "z": 0.7326868162952506
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            2,
+            253,
+            253,
+            0,
+            0
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_34_hand",
+          "timestamp": "2026-02-18 14:01:09",
+          "arm": "right",
+          "pose_type": "hand_only",
+          "joints": [
+            0.4520865186541556,
+            0.2817628747997247,
+            -1.198211490043489,
+            -0.7831435111009384,
+            0.08343556878004144,
+            -0.7911993591210802,
+            -0.943109636072327
+          ],
+          "position": {
+            "x": -0.02732881838357143,
+            "y": -0.5139527281377831,
+            "z": -0.35085635748838595
+          },
+          "euler": {
+            "x": -0.7106506724435863,
+            "y": -0.9845223299000387,
+            "z": 0.5790864662782749
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_35",
+          "timestamp": "2026-02-18 14:01:39",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.4129581139848941,
+            0.08765529869535271,
+            -1.1038429846646824,
+            -1.6389814602883952,
+            0.23035889219501016,
+            -0.4543881895170525,
+            -0.6277807278553453
+          ],
+          "position": {
+            "x": 0.07511119888285682,
+            "y": -0.4620056158136285,
+            "z": -0.23568510707761775
+          },
+          "euler": {
+            "x": -1.4252676833929223,
+            "y": -0.8366059783437667,
+            "z": 1.138375821353994
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_36",
+          "timestamp": "2026-02-18 14:02:01",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.5560453192950341,
+            0.06962554360265472,
+            -0.39723002975509303,
+            -1.7333499656672,
+            0.13522316319523853,
+            -0.7075719844357984,
+            0.210411078049896
+          ],
+          "position": {
+            "x": 0.12736417241091033,
+            "y": -0.3225575057057165,
+            "z": -0.2402832336361564
+          },
+          "euler": {
+            "x": -2.482999949200508,
+            "y": -1.0512414183205043,
+            "z": 2.081283160254434
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_37",
+          "timestamp": "2026-02-18 14:02:20",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.6473449301899752,
+            0.0005754177157246687,
+            -0.23803112840466945,
+            -1.0313403524834062,
+            0.181640192263675,
+            -1.5990858319981687,
+            0.24531975280384444
+          ],
+          "position": {
+            "x": 0.01302059983047412,
+            "y": -0.2550608196950146,
+            "z": -0.3273356714738031
+          },
+          "euler": {
+            "x": -2.8795957877486655,
+            "y": -1.1248198257238171,
+            "z": 2.6570756297190545
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_38",
+          "timestamp": "2026-02-18 14:02:52",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.43789288166628637,
+            0.047376058594643666,
+            -0.11565896086060867,
+            -0.554894483863583,
+            0.239181963836117,
+            -1.5004975967040508,
+            0.1555545891508352
+          ],
+          "position": {
+            "x": 0.03081402279733187,
+            "y": -0.23363550667927552,
+            "z": -0.41514445838832625
+          },
+          "euler": {
+            "x": -1.9591104210172599,
+            "y": -1.449198875166455,
+            "z": 1.9592238712891907
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_39",
+          "timestamp": "2026-02-18 14:03:12",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.33470130464637116,
+            -0.05274662394140606,
+            -0.10645227740901753,
+            -0.5598814373998628,
+            0.2602806134126787,
+            -0.5257399862668795,
+            0.15517097734035268
+          ],
+          "position": {
+            "x": 0.039747203165889415,
+            "y": -0.20234386914732777,
+            "z": -0.5219590887767707
+          },
+          "euler": {
+            "x": -0.21278878090977246,
+            "y": -0.7428667264554106,
+            "z": 0.1751480539890691
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_40",
+          "timestamp": "2026-02-18 14:03:28",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            0.04584161135271181,
+            -0.030497138933395007,
+            -0.10683588921950005,
+            0.009398489356831519,
+            0.17703685053787943,
+            -0.08880613412680205,
+            0.15593820096131772
+          ],
+          "position": {
+            "x": -0.01288721347042203,
+            "y": -0.20400171228837216,
+            "z": -0.5780472684370503
+          },
+          "euler": {
+            "x": -0.1206561360540653,
+            "y": -0.035914908588522684,
+            "z": 0.06742145394400237
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        },
+        {
+          "name": "pose_41",
+          "timestamp": "2026-02-18 14:03:39",
+          "arm": "right",
+          "pose_type": "joint",
+          "joints": [
+            -0.0013426413366897094,
+            0.0013426413366897094,
+            -0.00019180590524214836,
+            -0.0005754177157246687,
+            -0.00019180590524214836,
+            -0.00019180590524214836,
+            -0.00019180590524214836
+          ],
+          "position": {
+            "x": 0.005728777224906494,
+            "y": -0.2157699468657551,
+            "z": -0.579488606824909
+          },
+          "euler": {
+            "x": -0.001150211689211895,
+            "y": -0.002110379210257683,
+            "z": -0.0003825821508928787
+          },
+          "speed": 1.0,
+          "acceleration": 1.0,
+          "hand_positions": [
+            255,
+            255,
+            254,
+            254,
+            254,
+            254
+          ],
+          "hand_type": "L6",
+          "hand_side": "right",
+          "force_grab": null,
+          "trajectory_file": null,
+          "trajectory_duration": null,
+          "trajectory_points": null,
+          "right_joints": null,
+          "right_position": null,
+          "right_euler": null,
+          "right_speed": null,
+          "right_acceleration": null,
+          "right_hand_positions": null,
+          "right_hand_type": null
+        }
+      ],
+      "created": "2026-02-18T13:21:31.006256"
+    }
+  ],
+  "version": "2.0",
+  "saved_at": "2026-02-19T11:05:23.389328"
+}

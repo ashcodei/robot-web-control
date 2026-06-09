@@ -1,0 +1,18 @@
+# Robot Control Panel — Python dependencies
+
+# UI controllers pull in the Qt bindings (used by the shared widget modules)
+PySide6>=6.6.0
+
+numpy
+PyYAML
+
+# Hardware comms
+pyserial            # gripper (Modbus RTU over USB serial)
+pymodbus==3.5.1     # gripper
+python-can          # dexterous hands (CAN bus)
+
+# LinkerHand SDK (vendored in libs/) runtime deps
+minimalmodbus
+pexpect
+pyquaternion
+pycryptodome

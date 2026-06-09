@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Robot Control</title>
+<style>
+  /* Light, minimal UI */
+  :root{
+    --bg:#fafafa; --panel:#fff; --panel2:#fafafa; --line:#eaeaea; --line2:#e1e1e1;
+    --txt:#000; --muted:#666; --accent:#0070f3;
+    --ok:#16a34a; --warn:#f5a623; --bad:#e00000; --idle:#d4d4d4;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--txt);-webkit-font-smoothing:antialiased;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,"Noto Sans CJK SC",sans-serif;}
+  /* Header */
+  header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.8);
+    backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line);padding:12px 22px;}
+  .hrow{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1750px;margin:0 auto;}
+  .brand{font-size:1rem;font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:9px;color:#000}
+  .brand small{color:var(--muted);font-weight:400;font-size:.8rem;margin-left:8px}
+  .ico{width:20px;height:20px;flex:none;vertical-align:-4px}
+  .brand .ico{width:22px;height:22px}
+  .lang{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .lang button{background:#fff;color:var(--muted);border:0;padding:6px 14px;cursor:pointer;font-size:.82rem;font-weight:500}
+  .lang button.active{background:#000;color:#fff}
+  /* Status dots */
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--idle);flex:none;transition:background .2s}
+  .dot.ok{background:var(--ok)} .dot.warn{background:var(--warn)}
+  .dot.bad{background:var(--bad)} .dot.idle{background:var(--idle)}
+  /* Layout: 3 demarcated domains; Wok wider & internally 2-up */
+  main{max-width:1750px;margin:0 auto;padding:16px 22px 24px}
+  .columns{display:grid;grid-template-columns:1.05fr 1fr 1.95fr;gap:18px;align-items:start}
+  @media(max-width:1100px){.columns{grid-template-columns:1fr 1fr}}
+  @media(max-width:760px){.columns{grid-template-columns:1fr}}
+  .col{display:grid;grid-template-columns:1fr;gap:12px;align-content:start;background:transparent}
+  .c-wok{grid-template-columns:1fr 1fr}
+  @media(max-width:1100px){.c-wok{grid-template-columns:1fr}}
+  .col-head{grid-column:1/-1;display:flex;align-items:center;gap:9px;padding:2px 2px 9px;
+    border-bottom:1px solid var(--line)}
+  .col-name{font-weight:600;font-size:1rem;letter-spacing:-.01em;color:#000}
+  .col-head .ico{width:20px;height:20px;color:#000}
+  .cstat{display:flex;align-items:center;gap:10px;font-size:.7rem;color:var(--muted);font-weight:500;margin-left:auto}
+  .cstat .dd{display:flex;align-items:center;gap:4px}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
+  /* Cards */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 16px;transition:box-shadow .2s,border-color .2s}
+  .card:hover{box-shadow:0 4px 14px rgba(0,0,0,.05)}
+  .card h3{margin:0 0 3px;font-size:.9rem;font-weight:600;color:#000;letter-spacing:-.01em}
+  .card .hint{color:var(--muted);font-size:.74rem;margin:0 0 9px;line-height:1.4}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin:8px 0}
+  .field{display:flex;flex-direction:column;gap:4px;font-size:.72rem;color:var(--muted);font-weight:500}
+  input,select{background:#fff;border:1px solid var(--line);color:var(--txt);border-radius:8px;
+    padding:0 10px;height:36px;font-size:.86rem;min-width:80px;outline:none;transition:border-color .15s,box-shadow .15s}
+  input:focus,select:focus{border-color:#999;box-shadow:0 0 0 3px rgba(0,0,0,.05)}
+  input[type=range]{padding:0;height:22px;min-width:0;border:0;box-shadow:none}
+  .slider-row{display:flex;align-items:center;gap:10px;width:100%}
+  .slider{flex:1;min-width:0;accent-color:#000;cursor:pointer}
+  button.btn{border:1px solid transparent;border-radius:8px;height:36px;padding:0 14px;font-size:.84rem;
+    font-weight:500;cursor:pointer;color:#fff;background:#000;letter-spacing:-.01em;
+    transition:background .15s,border-color .15s,opacity .15s}
+  button.btn:hover{background:#383838} button.btn:active{opacity:.85}
+  button.btn:disabled{opacity:.4;cursor:not-allowed}
+  /* green/amber normalized to the black primary — no colored borders */
+  .btn.green,.btn.amber{background:#000;color:#fff;border-color:transparent}
+  .btn.green:hover,.btn.amber:hover{background:#383838}
+  /* colored buttons reserved for Stop / Emergency Stop only — solid red */
+  .btn.red{background:var(--bad);color:#fff;border-color:transparent}
+  .btn.red:hover{background:#c00000}
+  .btn.init{background:var(--ok);color:#fff;border-color:transparent}
+  .btn.init:hover{background:#15803d}
+  .btn.test{background:#7c3aed;color:#fff;border-color:transparent}
+  .btn.test:hover{background:#6d28d9}
+  .btn.connecting{background:var(--ok);color:#fff;border-color:transparent}
+  .btn.connected{background:var(--ok);color:#fff;border-color:transparent;opacity:.5}
+  .btn.connected:hover{background:var(--ok);opacity:.7}
+  .btn.grey,.btn.ghost{background:#fff;color:#000;border-color:var(--line)}
+  .btn.grey:hover,.btn.ghost:hover{background:#fafafa;border-color:#d4d4d4}
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+  .metric .v{font-size:1.3rem;font-weight:600;color:#000}
+  .metric .k{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+  .seasonbtn{min-width:104px;min-height:46px;white-space:pre-line;line-height:1.2}
+  .joints{font-family:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;color:var(--muted);word-break:break-all}
+  .badge{font-size:.7rem;padding:3px 9px;border-radius:6px;background:#fafafa;border:1px solid var(--line);color:#444;font-weight:500}
+  .log{max-height:180px;overflow:auto;display:flex;flex-direction:column;gap:6px}
+  details.collapse{margin:0}
+  summary.csum{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;
+    font-weight:600;font-size:.9rem;padding:0;user-select:none;color:#000}
+  summary.csum::-webkit-details-marker{display:none} summary.csum::marker{content:""}
+  .chev{width:15px;height:15px;color:var(--muted);transition:transform .15s;flex:none}
+  details.collapse[open] .chev{transform:rotate(90deg)}
+  .logitem{background:#fafafa;border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+  .logitem .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .st{font-size:.68rem;padding:2px 9px;border-radius:6px;color:#fff;font-weight:500}
+  .st.ok{background:var(--ok)} .st.bad{background:var(--bad)} .st.warn{background:var(--warn)} .st.idle{background:var(--idle)}
+  .divider{height:1px;background:var(--line);margin:9px 0}
+  /* Toast */
+  #toasts{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:50}
+  .toast{background:#fff;border:1px solid var(--line);border-left:3px solid #000;color:#000;
+    padding:11px 16px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.1);font-size:.86rem;max-width:340px;animation:fade .2s}
+  .toast.ok{border-left-color:var(--ok)} .toast.bad{border-left-color:var(--bad)} .toast.warn{border-left-color:var(--warn)}
+  .moving{color:var(--warn);font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <div class="brand"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg> <span data-i18n="app_title">Robot Control</span>
+      <small data-i18n="app_sub">Wok + Lingzu Dual Arm</small></div>
+    <div class="lang">
+      <button id="lang-en" onclick="setLang('en')">EN</button>
+      <button id="lang-zh" onclick="setLang('zh')">中文</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="columns">
+
+    <!-- COLUMN 1: DUAL ARM -->
+    <div class="col c-arm">
+      <div class="col-head"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 9 2 12 5 15"/><polyline points="9 5 12 2 15 5"/><polyline points="15 19 12 22 9 19"/><polyline points="19 9 22 12 19 15"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="22"/></svg><span class="col-name" data-i18n="tab_arm">Dual Arm</span><span class="cstat"><span class="dot idle" id="d-arm"></span></span></div>
+      <div class="card">
+        <h3 data-i18n="arm_conn">Arm Connection</h3>
+        <p class="hint" data-i18n="arm_conn_hint">Connect to the dual-arm controller.</p>
+        <div class="row">
+          <button class="btn" id="btn-arm-conn" onclick="doConnect('arm')" data-i18n="connect">Connect</button>
+          <button class="btn grey" onclick="api('/api/arm/disconnect','POST',{},'done')" data-i18n="disconnect">Disconnect</button>
+        </div>
+        <div class="joints" id="arm-ip">—</div>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="arm_enable">Enable / Home</h3>
+        <p class="hint" data-i18n="arm_enable_hint">Enable arms before moving. Zero/Run move the robot.</p>
+        <div class="row">
+          <button class="btn" id="btn-enable-l" onclick="doEnable('l')" data-i18n="enable_left">Enable Left</button>
+          <button class="btn grey" onclick="doDisable('l')" data-i18n="disable_left">Disable Left</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="btn-enable-r" onclick="doEnable('r')" data-i18n="enable_right">Enable Right</button>
+          <button class="btn grey" onclick="doDisable('r')" data-i18n="disable_right">Disable Right</button>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+          <button class="btn init" onclick="confirmMove('init')" data-i18n="initialize">Initialize</button>
+          <button class="btn amber" onclick="confirmMove('zero')" data-i18n="go_zero">Go to Zero</button>
+          <button class="btn test" onclick="testPose()" data-i18n="test">Test</button>
+          <button class="btn red" onclick="api('/api/arm/stop','POST',{},'stopped')" data-i18n="stop">Stop</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="arm_live">Live Status</h3>
+        <p class="hint"><span data-i18n="arm_moving">Motion</span>: <span id="arm-moving">—</span> ·
+          <span data-i18n="torque">Torque</span>: <span id="arm-torque">—</span></p>
+        <div style="font-size:.74rem;color:var(--muted)" data-i18n="left_joints">Left joints (rad)</div>
+        <div class="joints" id="arm-lj">—</div>
+        <div style="font-size:.74rem;color:var(--muted);margin-top:8px" data-i18n="right_joints">Right joints (rad)</div>
+        <div class="joints" id="arm-rj">—</div>
+      </div>
+
+    </div><!-- /col c-arm -->
+
+    <!-- COLUMN 2: HANDS & GRIPPER -->
+    <div class="col c-hand">
+      <div class="col-head"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 0 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg><span class="col-name" data-i18n="tab_hands">Hands &amp; Gripper</span><span class="cstat"><span class="dd"><span class="dot idle" id="d-lh"></span>L</span><span class="dd"><span class="dot idle" id="d-rh"></span>R</span><span class="dd"><span class="dot idle" id="d-grip"></span>G</span></span></div>
+      <div class="card">
+        <h3 data-i18n="hand_left">Left Hand</h3>
+        <div class="row">
+          <button class="btn" id="btn-lh-conn" onclick="doConnect('lh')" data-i18n="connect">Connect</button>
+          <button class="btn green" onclick="handSet('left',255)" data-i18n="open">Open</button>
+          <button class="btn grey" onclick="handSet('left',0)" data-i18n="close">Close</button>
+        </div>
+        <div class="field"><span data-i18n="finger_pos">Fingers (0 closed – 255 open)</span>
+          <div class="slider-row">
+            <input type="range" class="slider" min="0" max="255" value="255" id="hand-l"
+              oninput="document.getElementById('hand-lv').textContent=this.value"
+              onchange="handSet('left',this.value)">
+            <span class="badge" id="hand-lv">255</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="gripper">Gripper</h3>
+        <div class="row">
+          <button class="btn" id="btn-grip-conn" onclick="doConnect('grip')" data-i18n="connect">Connect</button>
+          <button class="btn green" onclick="gripperSet(100)" data-i18n="open">Open</button>
+          <button class="btn grey" onclick="gripperSet(0)" data-i18n="close">Close</button>
+        </div>
+        <div class="field"><span data-i18n="opening">Opening (0 closed – 100 open)</span>
+          <div class="slider-row">
+            <input type="range" class="slider" min="0" max="100" value="100" id="grip-v"
+              oninput="document.getElementById('grip-vv').textContent=this.value"
+              onchange="gripperSet(this.value)">
+            <span class="badge" id="grip-vv">100</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <details class="collapse">
+          <summary class="csum"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span data-i18n="hand_right">Right Hand</span></summary>
+          <div class="row">
+            <button class="btn" id="btn-rh-conn" onclick="doConnect('rh')" data-i18n="connect">Connect</button>
+            <button class="btn green" onclick="handSet('right',255)" data-i18n="open">Open</button>
+            <button class="btn grey" onclick="handSet('right',0)" data-i18n="close">Close</button>
+          </div>
+          <div class="field"><span data-i18n="finger_pos">Fingers (0 closed – 255 open)</span>
+            <div class="slider-row">
+              <input type="range" class="slider" min="0" max="255" value="255" id="hand-r"
+                oninput="document.getElementById('hand-rv').textContent=this.value"
+                onchange="handSet('right',this.value)">
+              <span class="badge" id="hand-rv">255</span>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div><!-- /col c-hand -->
+
+    <!-- COLUMN 3: WOK -->
+    <div class="col c-wok">
+      <div class="col-head"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="m4 8 16-4"/><path d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8"/></svg><span class="col-name" data-i18n="tab_wok">Wok</span><span class="cstat"><span class="dot idle" id="d-wok"></span></span></div>
+      <div class="card">
+        <h3 data-i18n="wok_conn">Wok Connection</h3>
+        <p class="hint" data-i18n="wok_conn_hint">Connect to the NextRobot cloud API.</p>
+        <div class="row">
+          <button class="btn" id="btn-wok-conn" onclick="doConnect('wok')" data-i18n="connect">Connect</button>
+          <button class="btn ghost" onclick="wokStatus()" data-i18n="refresh_status">Refresh Status</button>
+        </div>
+        <div class="joints" id="wok-info">—</div>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="wok_status">Live Status</h3>
+        <div class="metrics">
+          <div class="metric"><div class="v" id="w-angle">—</div><div class="k" data-i18n="angle">Angle</div></div>
+          <div class="metric"><div class="v" id="w-speed">—</div><div class="k" data-i18n="speed">Speed</div></div>
+          <div class="metric"><div class="v" id="w-power">—</div><div class="k" data-i18n="power">Power</div></div>
+          <div class="metric"><div class="v" id="w-temp">—</div><div class="k" data-i18n="temp">Temp</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="heating">Heating</h3>
+        <div class="row">
+          <label class="field"><span data-i18n="target_temp">Target °C</span>
+            <input type="number" id="w-tt" value="210" min="0" max="350" step="10"></label>
+          <button class="btn red" onclick="wok('START HEATING',{temperature:+document.getElementById('w-tt').value})" data-i18n="start_heat">Start Heating</button>
+          <button class="btn red" onclick="wok('STOP HEATING',null)" data-i18n="stop_heat">Stop</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="rotation">Rotation</h3>
+        <div class="row">
+          <label class="field"><span data-i18n="rot_speed">Speed (100–3000)</span>
+            <input type="number" id="w-rs" value="1500" min="100" max="3000" step="100"></label>
+          <label class="field"><span data-i18n="direction">Direction</span>
+            <select id="w-dir"><option value="clockwise" data-i18n="cw">Clockwise</option><option value="counterclockwise" data-i18n="ccw">Counterclockwise</option></select></label>
+        </div>
+        <div class="row">
+          <button class="btn" onclick="wok('ROTATE WOK',{speed:+document.getElementById('w-rs').value,direction:document.getElementById('w-dir').value})" data-i18n="start_rot">Start Rotation</button>
+          <button class="btn red" onclick="wok('STOP ROTATION',null)" data-i18n="stop">Stop</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="tilt">Tilt</h3>
+        <div class="row">
+          <label class="field"><span data-i18n="angle">Angle</span>
+            <input type="number" id="w-tilt" value="0" min="0" max="180" step="1"></label>
+          <button class="btn" onclick="wok('TILT WOK',{angle:+document.getElementById('w-tilt').value})" data-i18n="tilt_btn">Tilt</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="spray_wash">Spray &amp; Wash</h3>
+        <div class="row">
+          <button class="btn" onclick="wok('START SPRAYING WATER',null)" data-i18n="start_spray">Start Spray</button>
+          <button class="btn red" onclick="wok('STOP SPRAYING WATER',null)" data-i18n="stop">Stop</button>
+        </div>
+        <div class="row">
+          <button class="btn" onclick="wok('START WASHING WOK',null)" data-i18n="start_wash">Start Wash</button>
+          <button class="btn red" onclick="wok('STOP WASHING WOK',null)" data-i18n="stop">Stop</button>
+        </div>
+      </div>
+
+      <div class="card" style="grid-column:1/-1">
+        <h3 data-i18n="dispense">Dispense Seasoning</h3>
+        <p class="hint" data-i18n="dispense_hint">Tap a seasoning for a default dose, or use custom.</p>
+        <details class="collapse">
+          <summary class="csum"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span data-i18n="quick_list">Seasoning list</span></summary>
+          <div id="season-grid" class="row"></div>
+        </details>
+        <div class="divider"></div>
+        <div class="row">
+          <label class="field"><span data-i18n="seasoning">Seasoning</span>
+            <select id="w-seas"></select></label>
+          <label class="field"><span data-i18n="weight">Weight (g)</span>
+            <input type="number" id="w-weight" value="10" min="0.1" step="0.5"></label>
+          <button class="btn" onclick="wokDispenseCustom()" data-i18n="send">Send</button>
+        </div>
+      </div>
+
+      <div class="card" style="grid-column:1/-1">
+        <details class="collapse">
+          <summary class="csum"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg><span data-i18n="history">Command History</span></summary>
+          <div class="row" style="justify-content:flex-end;margin:6px 0 4px">
+            <button class="btn ghost" onclick="HIST=[];renderHist()" data-i18n="clear">Clear</button>
+          </div>
+          <div class="log" id="hist"></div>
+        </details>
+      </div>
+    </div><!-- /col c-wok -->
+
+  </div><!-- /columns -->
+</main>
+<div id="toasts"></div>
+
+<script>
+// ───────── i18n ─────────
+const I18N = {
+  en:{app_title:"Robot Control",app_sub:"Wok + Lingzu Dual Arm",
+    tab_arm:"Dual Arm",tab_hands:"Hands & Gripper",tab_wok:"Wok",
+    connect:"Connect",disconnect:"Disconnect",refresh:"Refresh",stop:"Stop",
+    arm_conn:"Arm Connection",arm_conn_hint:"Connect to the dual-arm controller.",
+    arm_enable:"Enable / Home",arm_enable_hint:"Enable arms before moving. Zero/Run move the robot.",
+    enable_left:"Enable Left",disable_left:"Disable Left",enable_right:"Enable Right",disable_right:"Disable Right",
+    go_zero:"Go to Zero",initialize:"Initialize",arm_live:"Live Status",arm_moving:"Motion",torque:"Torque",
+    left_joints:"Left joints (rad)",right_joints:"Right joints (rad)",
+    arm_steps:"Pose Steps (smooth replay)",arm_steps_hint:"Run a saved step. Speed scales joint speed; contact limit halts/holds on resistance (0 = off).",
+    step:"Step",speed:"Speed",contact_limit:"Contact limit",run_smooth:"Run (smooth)",test:"Test",
+    confirm_test:"Run the 'test_pose' step now? (no smoothing, speed 0.5, 0.5s delay)",
+    hand_left:"Left Hand",hand_right:"Right Hand",open:"Open",close:"Close",
+    finger_pos:"Fingers (0 closed – 255 open)",gripper:"Gripper",opening:"Opening (0 closed – 100 open)",
+    wok_conn:"Wok Connection",wok_conn_hint:"Connect to the NextRobot cloud API.",refresh_status:"Refresh Status",
+    wok_status:"Live Status",angle:"Angle",power:"Power",temp:"Temp",
+    heating:"Heating",target_temp:"Target °C",start_heat:"Start Heating",stop_heat:"Stop",
+    rotation:"Rotation",rot_speed:"Speed (100–3000)",direction:"Direction",start_rot:"Start Rotation",cw:"Clockwise",ccw:"Counterclockwise",
+    tilt:"Tilt",tilt_btn:"Tilt",spray_wash:"Spray & Wash",start_spray:"Start Spray",start_wash:"Start Wash",
+    dispense:"Dispense Seasoning",dispense_hint:"Tap a seasoning for a default dose, or use custom.",
+    quick_list:"Seasoning list",
+    seasoning:"Seasoning",weight:"Weight (g)",send:"Send",history:"Command History",clear:"Clear",
+    s_arm:"Arm",s_lhand:"L-Hand",s_rhand:"R-Hand",s_grip:"Gripper",s_wok:"Wok",
+    connected:"Connected",disconnected:"Disconnected",moving:"Moving",idle:"Idle",
+    confirm_zero:"Move both arms to ZERO now?",confirm_step:"Run this step on the real robot now?",
+    confirm_init:"Initialize now? This will enable the arms, move to zero, then run the initial pose.",
+    done:"Done",stopped:"Stop requested",connecting:"Connecting…",enabling:"Enabling…",enabled:"Enabled",arm_connecting:"Connecting arm…",
+    gripper_connecting:"Connecting gripper…",wok_connecting:"Connecting to wok…",
+    not_connected:"Not connected",sent:"Command sent"},
+  zh:{app_title:"机器人控制",app_sub:"炒锅 + 灵心双臂",
+    tab_arm:"双臂",tab_hands:"灵巧手与夹爪",tab_wok:"炒锅",
+    connect:"连接",disconnect:"断开",refresh:"刷新",stop:"停止",
+    arm_conn:"双臂连接",arm_conn_hint:"连接双臂控制器。",
+    arm_enable:"使能 / 归零",arm_enable_hint:"移动前请先使能。归零/运行会移动机器人。",
+    enable_left:"使能左臂",disable_left:"禁用左臂",enable_right:"使能右臂",disable_right:"禁用右臂",
+    go_zero:"回零位",initialize:"初始化",arm_live:"实时状态",arm_moving:"运动",torque:"力矩",
+    left_joints:"左臂关节 (弧度)",right_joints:"右臂关节 (弧度)",
+    arm_steps:"位姿步骤（平滑回放）",arm_steps_hint:"运行已保存的步骤。速度缩放关节速度；接触力限在受阻时停住（0=关闭）。",
+    step:"步骤",speed:"速度",contact_limit:"接触力限",run_smooth:"运行（平滑）",test:"测试",
+    confirm_test:"现在运行 test_pose 步骤？（无平滑，速度 0.5，延迟 0.5 秒）",
+    hand_left:"左手",hand_right:"右手",open:"张开",close:"闭合",
+    finger_pos:"手指 (0 闭合 – 255 张开)",gripper:"夹爪",opening:"开度 (0 闭合 – 100 张开)",
+    wok_conn:"炒锅连接",wok_conn_hint:"连接 NextRobot 云端 API。",refresh_status:"刷新状态",
+    wok_status:"实时状态",angle:"角度",power:"功率",temp:"温度",
+    heating:"加热",target_temp:"目标 °C",start_heat:"开始加热",stop_heat:"停止",
+    rotation:"旋转",rot_speed:"速度 (100–3000)",direction:"方向",start_rot:"开始旋转",cw:"顺时针",ccw:"逆时针",
+    tilt:"倾倒",tilt_btn:"倾倒",spray_wash:"喷水与清洗",start_spray:"开始喷水",start_wash:"开始清洗",
+    dispense:"投放调料",dispense_hint:"点击调料投放默认量，或自定义。",
+    quick_list:"调料列表",
+    seasoning:"调料",weight:"重量 (克)",send:"发送",history:"指令历史",clear:"清空",
+    s_arm:"双臂",s_lhand:"左手",s_rhand:"右手",s_grip:"夹爪",s_wok:"炒锅",
+    connected:"已连接",disconnected:"未连接",moving:"运动中",idle:"空闲",
+    confirm_zero:"现在将双臂移动到零位？",confirm_step:"现在在真实机器人上运行此步骤？",
+    confirm_init:"现在初始化？将使能双臂、回到零位，然后运行初始位姿。",
+    done:"完成",stopped:"已请求停止",connecting:"连接中…",enabling:"使能中…",enabled:"已使能",arm_connecting:"正在连接双臂…",
+    gripper_connecting:"正在连接夹爪…",wok_connecting:"正在连接炒锅…",
+    not_connected:"未连接",sent:"指令已发送"}
+};
+let lang = localStorage.getItem("lang") || "en";
+const t = k => (I18N[lang][k] ?? k);
+
+function setLang(l){ lang=l; localStorage.setItem("lang",l); applyI18n(); }
+function applyI18n(){
+  document.documentElement.lang = lang;
+  document.getElementById("lang-en").classList.toggle("active",lang==="en");
+  document.getElementById("lang-zh").classList.toggle("active",lang==="zh");
+  document.querySelectorAll("[data-i18n]").forEach(el=>{ el.textContent = t(el.dataset.i18n); });
+  const setTitle=(sel,key)=>{const e=document.querySelector(sel); if(e) e.title=t(key);};
+  setTitle(".c-arm .col-head","tab_arm");
+  setTitle(".c-hand .col-head","tab_hands");
+  setTitle(".c-wok .col-head","tab_wok");
+  renderStatus(lastStatus); renderHist(); renderSeasonings();
+}
+
+// ───────── toast ─────────
+function toast(msg,type=""){ const c=document.getElementById("toasts");
+  const d=document.createElement("div"); d.className="toast "+type; d.textContent=msg;
+  c.appendChild(d); setTimeout(()=>d.remove(),3200); }
+
+// ───────── generic API ─────────
+async function api(path,method="POST",body=null,okMsgKey=null){
+  try{
+    const r = await fetch(path,{method,headers:{"Content-Type":"application/json"},
+      body: body?JSON.stringify(body):null});
+    const j = await r.json();
+    if(j.ok===false){ toast((j.msg||j.error||"error"),"bad"); return j; }
+    if(okMsgKey) toast(t(okMsgKey),"ok");
+    return j;
+  }catch(e){ toast(String(e),"bad"); return {ok:false}; }
+}
+
+// ───────── confirm arm motion ─────────
+function confirmMove(kind){
+  const msg = kind==="zero"? t("confirm_zero") : kind==="init"? t("confirm_init") : t("confirm_step");
+  if(!confirm(msg)) return;
+  if(kind==="zero"){ api('/api/arm/zero','POST',{},'sent'); }
+  else if(kind==="init"){ api('/api/arm/init','POST',{},'sent'); }
+  else{
+    const name=document.getElementById("step-sel").value;
+    if(!name){ toast(t("not_connected"),"warn"); return; }
+    api('/api/arm/run_step','POST',{name,
+      speed:+document.getElementById("step-speed").value,
+      effort_limit:+document.getElementById("step-effort").value},'sent');
+  }
+}
+
+function testPose(){ if(confirm(t('confirm_test'))) api('/api/arm/test_pose','POST',{},'sent'); }
+
+// ───────── hands / gripper ─────────
+function handSet(side,val){
+  document.getElementById(side==="left"?"hand-l":"hand-r").value=val;
+  document.getElementById(side==="left"?"hand-lv":"hand-rv").textContent=val;
+  api('/api/hand/set','POST',{side,value:+val});
+}
+function gripperSet(val){
+  document.getElementById("grip-v").value=val;
+  document.getElementById("grip-vv").textContent=val;
+  api('/api/gripper/set','POST',{opening:+val});
+}
+
+// ───────── steps ─────────
+async function loadSteps(){
+  const j = await api('/api/arm/steps','GET');
+  const sel=document.getElementById("step-sel"); const cur=sel.value;
+  sel.innerHTML="";
+  (j.steps||[]).forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;sel.appendChild(o);});
+  if(cur) sel.value=cur;
+}
+
+// ───────── status polling ─────────
+let lastStatus=null;
+function setDot(id,state){const e=document.getElementById(id); if(e) e.className="dot "+state;}
+// Connect-button state: idle (black) -> connecting (green) -> connected (faded green, still clickable)
+const CONN={
+  arm:{id:'btn-arm-conn',ok:s=>s.arm.connected,call:()=>api('/api/arm/connect','POST',{})},
+  lh:{id:'btn-lh-conn',ok:s=>s.hand.left,call:()=>api('/api/hand/connect','POST',{side:'left'})},
+  rh:{id:'btn-rh-conn',ok:s=>s.hand.right,call:()=>api('/api/hand/connect','POST',{side:'right'})},
+  grip:{id:'btn-grip-conn',ok:s=>s.gripper.connected,call:()=>api('/api/gripper/connect','POST',{})},
+  wok:{id:'btn-wok-conn',ok:s=>s.wok.connected,call:()=>wokConnect()},
+};
+const _connecting={};
+function doConnect(comp){ _connecting[comp]=Date.now()+10000; setConnBtn(comp,'connecting'); CONN[comp].call(); }
+function setConnBtn(comp,state){
+  const b=document.getElementById(CONN[comp].id); if(!b) return;
+  b.classList.remove('connecting','connected');
+  if(state==='connecting'){ b.classList.add('connecting'); b.textContent=t('connecting'); }
+  else if(state==='connected'){ b.classList.add('connected'); b.textContent=t('connected'); }
+  else b.textContent=t('connect');
+}
+function updateConnBtns(s){
+  for(const comp in CONN){
+    if(CONN[comp].ok(s)){ delete _connecting[comp]; setConnBtn(comp,'connected'); }
+    else if(_connecting[comp] && Date.now()<_connecting[comp]) setConnBtn(comp,'connecting');
+    else { delete _connecting[comp]; setConnBtn(comp,'idle'); }
+  }
+}
+// Enable buttons share the same idle->enabling->enabled visual as Connect.
+const ENA={
+  l:{id:'btn-enable-l',idle:'enable_left',ok:s=>s.arm.left_enabled,call:()=>api('/api/arm/enable','POST',{side:'left',enable:true})},
+  r:{id:'btn-enable-r',idle:'enable_right',ok:s=>s.arm.right_enabled,call:()=>api('/api/arm/enable','POST',{side:'right',enable:true})},
+};
+const _enabling={};
+function doEnable(side){ _enabling[side]=Date.now()+8000; setEnaBtn(side,'enabling'); ENA[side].call(); }
+function doDisable(side){ delete _enabling[side]; api('/api/arm/enable','POST',{side:side==='l'?'left':'right',enable:false}); }
+function setEnaBtn(side,state){
+  const e=ENA[side], b=document.getElementById(e.id); if(!b) return;
+  b.classList.remove('connecting','connected');
+  if(state==='enabling'){ b.classList.add('connecting'); b.textContent=t('enabling'); }
+  else if(state==='enabled'){ b.classList.add('connected'); b.textContent=t('enabled'); }
+  else b.textContent=t(e.idle);
+}
+function updateEnaBtns(s){
+  for(const side in ENA){
+    if(ENA[side].ok(s)){ delete _enabling[side]; setEnaBtn(side,'enabled'); }
+    else if(_enabling[side] && Date.now()<_enabling[side]) setEnaBtn(side,'enabling');
+    else { delete _enabling[side]; setEnaBtn(side,'idle'); }
+  }
+}
+function renderStatus(s){
+  if(!s) return;
+  setDot("d-arm", s.arm.connected ? (s.arm.moving?"warn":"ok") : "idle");
+  setDot("d-lh", s.hand.left?"ok":"idle");
+  setDot("d-rh", s.hand.right?"ok":"idle");
+  setDot("d-grip", s.gripper.connected?"ok":"idle");
+  setDot("d-wok", s.wok.connected?"ok":"idle");
+  updateConnBtns(s);
+  updateEnaBtns(s);
+  document.getElementById("arm-ip").textContent = s.arm.ip? ("IP: "+s.arm.ip):"—";
+  const mv=document.getElementById("arm-moving");
+  mv.textContent = s.arm.moving? t("moving"):t("idle"); mv.className = s.arm.moving?"moving":"";
+  document.getElementById("arm-torque").textContent = s.arm.torque ?? "—";
+  document.getElementById("arm-lj").textContent = (s.arm.left_joints||[]).join(", ")||"—";
+  document.getElementById("arm-rj").textContent = (s.arm.right_joints||[]).join(", ")||"—";
+}
+async function poll(){
+  try{ const r=await fetch('/api/status'); lastStatus=await r.json(); renderStatus(lastStatus); }
+  catch(e){}
+}
+
+// ───────── wok ─────────
+let HIST=[];
+function renderHist(){
+  const el=document.getElementById("hist");
+  if(!HIST.length){ el.innerHTML=`<div style="color:var(--muted)">—</div>`; return; }
+  el.innerHTML="";
+  HIST.forEach(h=>{
+    const cls = h.status==="ok"?"ok":(h.status==="bad"?"bad":"warn");
+    const d=document.createElement("div"); d.className="logitem";
+    d.innerHTML=`<div class="top"><b>${h.label}</b><span class="st ${cls}">${h.status}</span></div>
+      <div style="font-size:.72rem;color:var(--muted)">${h.time} · ${h.action}</div>`;
+    el.appendChild(d);
+  });
+}
+function pushHist(action,label,status){ HIST.unshift({action,label,status,
+  time:new Date().toLocaleTimeString()}); if(HIST.length>40)HIST.pop(); renderHist(); }
+
+async function wokConnect(){
+  toast(t("wok_connecting"));
+  const j=await api('/api/wok/connect','POST',{language:lang});
+  if(j.ok){ const r=j.robot||{};
+    document.getElementById("wok-info").textContent=`${r.name||"?"} · sn:${r.sn||"—"} · ${r.robotType||""}`;
+    renderSeasonings(j.seasonings||[]); toast(t("connected"),"ok"); wokStatus(); }
+}
+let SEAS=[];
+function renderSeasonings(list){
+  if(list) SEAS=list;
+  const grid=document.getElementById("season-grid"); grid.innerHTML="";
+  const sel=document.getElementById("w-seas"); sel.innerHTML="";
+  SEAS.forEach(s=>{
+    const name=(s.name||("#"+s.id)).trim();
+    const def = s.type==="liquid"?10:5;
+    const b=document.createElement("button");
+    b.className="btn seasonbtn "+(s.type==="liquid"?"":"amber");
+    b.textContent=`${name}\n${def}g`;
+    b.onclick=()=>wokDispense(s.id,def,`${name} · ${def}g`);
+    grid.appendChild(b);
+    const o=document.createElement("option");o.value=s.id;o.textContent=`${name} (${s.type})`;sel.appendChild(o);
+  });
+  if(!SEAS.length) grid.innerHTML=`<div style="color:var(--muted)">${t("not_connected")}</div>`;
+}
+async function wok(action,payload){
+  const j=await api('/api/wok/action','POST',{action,payload});
+  pushHist(action, action, j.ok?"ok":"bad");
+  if(j.ok) toast(t("sent"),"ok");
+  if(action==="GET ROBOT STATUS") wokStatus();
+}
+async function wokDispense(id,weight,label){
+  const j=await api('/api/wok/action','POST',{action:"DISPENSE SEASONING",payload:{seasonings:[{id:+id,weight:+weight}]}});
+  pushHist("DISPENSE",label,j.ok?"ok":"bad");
+}
+function wokDispenseCustom(){
+  const id=document.getElementById("w-seas").value;
+  const w=+document.getElementById("w-weight").value;
+  if(!id||w<=0){ toast(t("not_connected"),"warn"); return; }
+  const name=document.getElementById("w-seas").selectedOptions[0].textContent;
+  wokDispense(id,w,`${name} · ${w}g`);
+}
+async function wokStatus(){
+  const j=await api('/api/wok/action','POST',{action:"GET ROBOT STATUS",payload:null});
+  let rs=null; const find=o=>{ if(o&&typeof o==="object"){ if(o.robotStatus)rs=o.robotStatus;
+    else for(const k in o) find(o[k]); } }; find(j.resp);
+  if(rs){ document.getElementById("w-angle").textContent=rs.potAngle??"—";
+    document.getElementById("w-speed").textContent=rs.potSpeed??"—";
+    document.getElementById("w-power").textContent=rs.power??"—";
+    document.getElementById("w-temp").textContent=rs.temperature??"—"; }
+}
+
+// ───────── init ─────────
+applyI18n();
+poll();
+setInterval(poll,1500);
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+{
+  "lebai": {
+    "ip": "10.20.17.1",
+    "port": 5180,
+    "speed_factor": 0.5,
+    "acceleration": 0.5,
+    "default_pose": [
+      0,
+      -60,
+      80,
+      -110,
+      -90,
+      0
+    ]
+  },
+  "gantry": {
+    "serial_port": "/dev/ttyACM0",
+    "baudrate": 9600,
+    "timeout": 1.0,
+    "connect_delay": 1.2,
+    "vertical_max": 5000.0,
+    "horizontal_max": 5000.0,
+    "ppr": 5000,
+    "mm_per_rev": 160.0,
+    "firmware_fqbn": "arduino:avr:mega:cpu=atmega2560"
+  },
+  "dual_arm": {
+    "ip": "192.168.10.21",
+    "port": 8080,
+    "left_arm_id": "left",
+    "right_arm_id": "right",
+    "speed_factor": 0.3
+  },
+  "linker_hand": {
+    "can_interface": "can0",
+    "baudrate": 1000000,
+    "left_hand_id": 1,
+    "right_hand_id": 2
+  },
+  "dexhand": {
+    "can_interface": "can0",
+    "baudrate": 1000000,
+    "modbus_port": null,
+    "hand_type": "L6",
+    "left_enabled": true,
+    "right_enabled": true,
+    "default_speed": 100,
+    "default_torque": 150,
+    "force_threshold": 50,
+    "grab_step": 5,
+    "stall_time": 1.5
+  },
+  "gloves": {
+    "enabled": false,
+    "ros_host": "localhost",
+    "ros_port": 9090,
+    "left_topic": "/gloves/left_hand",
+    "right_topic": "/gloves/right_hand",
+    "calibration_file": null,
+    "smoothing_factor": 0.8,
+    "update_rate": 50.0
+  },
+  "recording": {
+    "output_dir": "recordings",
+    "format": "hdf5",
+    "include_images": true,
+    "include_depth": false,
+    "image_size": [
+      640,
+      480
+    ],
+    "record_rate": 30.0,
+    "max_episode_length": 300.0
+  },
+  "teleop": {
+    "mode": "local",
+    "ros_host": "localhost",
+    "ros_port": 9090,
+    "relay_server": null,
+    "update_rate": 100.0
+  },
+  "wok": {
+    "serial_port": "/dev/ttyUSB1",
+    "baudrate": 9600,
+    "slave_address": 1,
+    "timeout": 1.0
+  },
+  "gripper": {
+    "serial_port": "/dev/ttyUSB0",
+    "baudrate": 115200,
+    "slave_address": 1,
+    "parity": "N",
+    "timeout": 1.0,
+    "default_force": 50,
+    "default_speed": 50
+  },
+  "inventory": {
+    "rows": 4,
+    "columns": 3,
+    "slot_width": 100.0,
+    "slot_height": 80.0
+  },
+  "camera": {
+    "device_id": 0,
+    "width": 640,
+    "height": 480,
+    "fps": 30
+  },
+  "remote_control": {
+    "enabled": true,
+    "host": "0.0.0.0",
+    "port": 8088,
+    "websocket_enabled": true,
+    "status_broadcast_interval": 0.1
+  },
+  "gui": {
+    "window_width": 1600,
+    "window_height": 900,
+    "theme": "light",
+    "default_language": "en",
+    "log_max_lines": 1000,
+    "status_update_interval": 0.1
+  },
+  "system": {
+    "debug_mode": false,
+    "auto_connect": false,
+    "emergency_stop_timeout": 5.0,
+    "heartbeat_interval": 1.0
+  }
+}
