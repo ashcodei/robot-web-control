@@ -103,9 +103,16 @@
     padding:11px 16px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.1);font-size:.86rem;max-width:340px;animation:fade .2s}
   .toast.ok{border-left-color:var(--ok)} .toast.bad{border-left-color:var(--bad)} .toast.warn{border-left-color:var(--warn)}
   .moving{color:var(--warn);font-weight:600}
+  #movewarn{position:fixed;top:0;left:0;right:0;z-index:100;display:none;align-items:center;
+    justify-content:center;gap:14px;padding:16px;font-size:1.15rem;font-weight:800;
+    letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--bad);
+    box-shadow:0 6px 24px rgba(0,0,0,.45);animation:warnflash .8s infinite}
+  #movewarn.on{display:flex}
+  @keyframes warnflash{0%,49%{background:var(--bad);color:#fff}50%,100%{background:#ffd000;color:#000}}
 </style>
 </head>
 <body>
+<div id="movewarn"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg><span data-i18n="moving_warn">Robot moving — stay clear</span><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg></div>
 <header>
   <div class="hrow">
     <div class="brand"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg> <span data-i18n="app_title">Robot Control</span>
@@ -229,6 +236,10 @@
         <h3 data-i18n="wok_conn">Wok Connection</h3>
         <p class="hint" data-i18n="wok_conn_hint">Connect to the NextRobot cloud API.</p>
         <div class="row">
+          <label class="field" style="flex:1"><span data-i18n="machine_id">Machine ID</span>
+            <input type="text" id="w-machine" placeholder="optional"></label>
+        </div>
+        <div class="row">
           <button class="btn" id="btn-wok-conn" onclick="doConnect('wok')" data-i18n="connect">Connect</button>
           <button class="btn ghost" onclick="wokStatus()" data-i18n="refresh_status">Refresh Status</button>
         </div>
@@ -335,10 +346,10 @@ const I18N = {
     left_joints:"Left joints (rad)",right_joints:"Right joints (rad)",
     arm_steps:"Pose Steps (smooth replay)",arm_steps_hint:"Run a saved step. Speed scales joint speed; contact limit halts/holds on resistance (0 = off).",
     step:"Step",speed:"Speed",contact_limit:"Contact limit",run_smooth:"Run (smooth)",test:"Test",
-    confirm_test:"Run the 'test_pose' step now? (no smoothing, speed 0.5, 0.5s delay)",
+    confirm_test:"⚠ WARNING: the robot will MOVE. Make sure everyone is clear of the arms. Run 'test_pose' now?",moving_warn:"⚠ Robot moving — stay clear",
     hand_left:"Left Hand",hand_right:"Right Hand",open:"Open",close:"Close",
     finger_pos:"Fingers (0 closed – 255 open)",gripper:"Gripper",opening:"Opening (0 closed – 100 open)",
-    wok_conn:"Wok Connection",wok_conn_hint:"Connect to the NextRobot cloud API.",refresh_status:"Refresh Status",
+    wok_conn:"Wok Connection",machine_id:"Machine ID",wok_conn_hint:"Connect to the NextRobot cloud API.",refresh_status:"Refresh Status",
     wok_status:"Live Status",angle:"Angle",power:"Power",temp:"Temp",
     heating:"Heating",target_temp:"Target °C",start_heat:"Start Heating",stop_heat:"Stop",
     rotation:"Rotation",rot_speed:"Speed (100–3000)",direction:"Direction",start_rot:"Start Rotation",cw:"Clockwise",ccw:"Counterclockwise",
@@ -363,10 +374,10 @@ const I18N = {
     left_joints:"左臂关节 (弧度)",right_joints:"右臂关节 (弧度)",
     arm_steps:"位姿步骤（平滑回放）",arm_steps_hint:"运行已保存的步骤。速度缩放关节速度；接触力限在受阻时停住（0=关闭）。",
     step:"步骤",speed:"速度",contact_limit:"接触力限",run_smooth:"运行（平滑）",test:"测试",
-    confirm_test:"现在运行 test_pose 步骤？（无平滑，速度 0.5，延迟 0.5 秒）",
+    confirm_test:"⚠ 警告：机器人将会运动，请确保所有人远离手臂。现在运行 test_pose？",moving_warn:"⚠ 机器人运动中 — 请远离",
     hand_left:"左手",hand_right:"右手",open:"张开",close:"闭合",
     finger_pos:"手指 (0 闭合 – 255 张开)",gripper:"夹爪",opening:"开度 (0 闭合 – 100 张开)",
-    wok_conn:"炒锅连接",wok_conn_hint:"连接 NextRobot 云端 API。",refresh_status:"刷新状态",
+    wok_conn:"炒锅连接",machine_id:"机器 SN",wok_conn_hint:"连接 NextRobot 云端 API。",refresh_status:"刷新状态",
     wok_status:"实时状态",angle:"角度",power:"功率",temp:"温度",
     heating:"加热",target_temp:"目标 °C",start_heat:"开始加热",stop_heat:"停止",
     rotation:"旋转",rot_speed:"速度 (100–3000)",direction:"方向",start_rot:"开始旋转",cw:"顺时针",ccw:"逆时针",
@@ -511,6 +522,7 @@ function renderStatus(s){
   setDot("d-wok", s.wok.connected?"ok":"idle");
   updateConnBtns(s);
   updateEnaBtns(s);
+  const _mw=document.getElementById("movewarn"); if(_mw) _mw.classList.toggle("on", !!(s.arm.moving||s.executing));
   document.getElementById("arm-ip").textContent = s.arm.ip? ("IP: "+s.arm.ip):"—";
   const mv=document.getElementById("arm-moving");
   mv.textContent = s.arm.moving? t("moving"):t("idle"); mv.className = s.arm.moving?"moving":"";
@@ -542,7 +554,9 @@ function pushHist(action,label,status){ HIST.unshift({action,label,status,
 
 async function wokConnect(){
   toast(t("wok_connecting"));
-  const j=await api('/api/wok/connect','POST',{language:lang});
+  const _el=document.getElementById("w-machine"); const sn=_el?_el.value.trim():"";
+  localStorage.setItem("wok_sn", sn);
+  const j=await api('/api/wok/connect','POST',{language:lang, sn});
   if(j.ok){ const r=j.robot||{};
     document.getElementById("wok-info").textContent=`${r.name||"?"} · sn:${r.sn||"—"} · ${r.robotType||""}`;
     renderSeasonings(j.seasonings||[]); toast(t("connected"),"ok"); wokStatus(); }
@@ -593,6 +607,7 @@ async function wokStatus(){
 
 // ───────── init ─────────
 applyI18n();
+(function(){const m=document.getElementById("w-machine"); if(m) m.value=localStorage.getItem("wok_sn")||"";})();
 poll();
 setInterval(poll,1500);
 </script>

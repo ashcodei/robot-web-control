@@ -54,26 +54,48 @@ _last_hand_cmd: dict = {}
 # ──────────────────────────────────────────────────────────────────────────
 # Wok cloud client (urllib; mirrors nextrobot_client without the requests dep)
 # ──────────────────────────────────────────────────────────────────────────
-class WokClient:
-    API_HOST = "https://api.nextrobot.com"
-    CLIENT_ID = "77a1d8c4d8a78d04e9079a8e4e1d9e98"
-    CLIENT_SECRET = "851d6270c044997caca400aa354b8a5816b4162613524955da4ae00ecec4df7f"
-    RESTAURANT_ID = "e1e7e06a-61d2-47ea-89df-b345f6fa4c9a"
+def _load_wok_config():
+    """Wok cloud credentials from config/wok_credentials.json or WOK_* env vars."""
+    cfg = {"api_host": "https://api.nextrobot.com", "client_id": "",
+           "client_secret": "", "restaurant_id": "", "machine_sn": ""}
+    try:
+        with open(os.path.join(HERE, "config", "wok_credentials.json"), encoding="utf-8") as f:
+            cfg.update({k: v for k, v in json.load(f).items() if v})
+    except Exception:
+        pass
+    for key, env in (("api_host", "WOK_API_HOST"), ("client_id", "WOK_CLIENT_ID"),
+                     ("client_secret", "WOK_CLIENT_SECRET"),
+                     ("restaurant_id", "WOK_RESTAURANT_ID"), ("machine_sn", "WOK_MACHINE_SN")):
+        if os.environ.get(env):
+            cfg[key] = os.environ[env]
+    return cfg
 
+
+class WokClient:
     def __init__(self, language: str = "en", timeout: float = 30.0):
+        cfg = _load_wok_config()
+        self.api_host = cfg["api_host"].rstrip("/")
+        self.client_id = cfg["client_id"]
+        self.client_secret = cfg["client_secret"]
+        self.restaurant_id = cfg["restaurant_id"]
+        self.machine_sn = cfg.get("machine_sn", "")   # optional preferred machine
         self.language = language
         self.timeout = timeout
         self._token: str | None = None
         self._ctx = ssl.create_default_context()
 
+    @property
+    def configured(self) -> bool:
+        return bool(self.client_id and self.client_secret and self.restaurant_id)
+
     def _req(self, method, path, body=None, params=None, auth=True):
-        url = self.API_HOST + path
+        url = self.api_host + path
         if params:
             url += "?" + urllib.parse.urlencode(params)
         headers = {"Content-Type": "application/json", "Language": self.language}
         if auth:
             headers["Authorization"] = f"Bearer {self.get_token()}"
-            headers["NextRobot-Restaurant-External-ID"] = self.RESTAURANT_ID
+            headers["NextRobot-Restaurant-External-ID"] = self.restaurant_id
         data = json.dumps(body).encode() if body is not None else None
         req = urllib.request.Request(url, data=data, headers=headers, method=method)
         with urllib.request.urlopen(req, timeout=self.timeout, context=self._ctx) as resp:
@@ -84,7 +106,7 @@ class WokClient:
         if self._token:
             return self._token
         data = self._req("POST", "/integration/v1/authentication/login", auth=False, body={
-            "clientId": self.CLIENT_ID, "clientSecret": self.CLIENT_SECRET,
+            "clientId": self.client_id, "clientSecret": self.client_secret,
             "userAccessType": "NEXTROBOT_MACHINE_CLIENT",
         })
         tok = self._extract_token(data)
@@ -463,12 +485,21 @@ def api_gripper_set(body):
 def api_wok_connect(body):
     global WOK_ROBOT, WOK_SEASONINGS, WOK
     WOK.language = body.get("language", "en")
+    if not WOK.configured:
+        return {"ok": False, "msg": "Wok credentials not set — see config/wok_credentials.example.json"}
     WOK.get_token()
     robots = WOK.get_robots()
     rlist = robots.get("robots", []) if isinstance(robots, dict) else []
-    if not rlist:
-        return {"ok": False, "msg": "no robots"}
-    WOK_ROBOT = rlist[0]
+    sn = str(body.get("sn") or WOK.machine_sn or "").strip()
+    if sn:
+        WOK_ROBOT = next((r for r in rlist if str(r.get("sn")) == sn), None) or {
+            "sn": sn, "name": sn,
+            "robotType": (rlist[0].get("robotType", "robby") if rlist else "robby"),
+        }
+    elif rlist:
+        WOK_ROBOT = rlist[0]
+    else:
+        return {"ok": False, "msg": "no robots for this account"}
     try:
         s = WOK.get_seasonings(WOK_ROBOT.get("robotType", "robby"))
         WOK_SEASONINGS = s.get("seasonings", []) if isinstance(s, dict) else []

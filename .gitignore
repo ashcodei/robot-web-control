@@ -9,3 +9,6 @@ logs/
 .idea/
 .vscode/
 .DS_Store
+
+# Wok cloud credentials (keep private)
+config/wok_credentials.json
