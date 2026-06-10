@@ -155,7 +155,6 @@
         <div class="row">
           <button class="btn init" onclick="confirmMove('init')" data-i18n="initialize">Initialize</button>
           <button class="btn amber" onclick="confirmMove('zero')" data-i18n="go_zero">Go to Zero</button>
-          <button class="btn test" onclick="testPose()" data-i18n="test">Test</button>
           <button class="btn red" onclick="api('/api/arm/stop','POST',{},'stopped')" data-i18n="stop">Stop</button>
         </div>
       </div>
@@ -170,6 +169,14 @@
         <div class="joints" id="arm-rj">—</div>
       </div>
 
+      <div class="card">
+        <h3 data-i18n="test_title">Test Pose</h3>
+        <p class="hint" data-i18n="test_hint">Plays the pre-recorded test_pose on the robot, one pose at a time (speed 0.5, 0.5 s pause, no smoothing), so you can check it executes correctly. The arm will move — stay clear.</p>
+        <div class="row">
+          <button class="btn test" onclick="testPose()" data-i18n="run_test">Run Test</button>
+          <button class="btn red" onclick="api('/api/arm/stop','POST',{},'stopped')" data-i18n="stop">Stop</button>
+        </div>
+      </div>
     </div><!-- /col c-arm -->
 
     <!-- COLUMN 2: HANDS & GRIPPER -->
@@ -350,7 +357,7 @@ const I18N = {
     go_zero:"Go to Zero",initialize:"Initialize",arm_live:"Live Status",arm_moving:"Motion",torque:"Torque",
     left_joints:"Left joints (rad)",right_joints:"Right joints (rad)",
     arm_steps:"Pose Steps (smooth replay)",arm_steps_hint:"Run a saved step. Speed scales joint speed; contact limit halts/holds on resistance (0 = off).",
-    step:"Step",speed:"Speed",contact_limit:"Contact limit",run_smooth:"Run (smooth)",test:"Test",
+    step:"Step",speed:"Speed",contact_limit:"Contact limit",run_smooth:"Run (smooth)",test:"Test",test_title:"Test Pose",test_hint:"Plays the pre-recorded test_pose on the robot, one pose at a time (speed 0.5, 0.5 s pause, no smoothing) so you can verify it runs correctly. The arm will move — stay clear.",run_test:"Run Test",
     confirm_test:"⚠ WARNING: the robot will MOVE. Make sure everyone is clear of the arms. Run 'test_pose' now?",moving_warn:"⚠ Robot moving — stay clear",
     hand_left:"Left Hand",hand_right:"Right Hand",open:"Open",close:"Close",
     finger_pos:"Fingers (0 closed – 255 open)",gripper:"Gripper",opening:"Opening (0 closed – 100 open)",
@@ -378,7 +385,7 @@ const I18N = {
     go_zero:"回零位",initialize:"初始化",arm_live:"实时状态",arm_moving:"运动",torque:"力矩",
     left_joints:"左臂关节 (弧度)",right_joints:"右臂关节 (弧度)",
     arm_steps:"位姿步骤（平滑回放）",arm_steps_hint:"运行已保存的步骤。速度缩放关节速度；接触力限在受阻时停住（0=关闭）。",
-    step:"步骤",speed:"速度",contact_limit:"接触力限",run_smooth:"运行（平滑）",test:"测试",
+    step:"步骤",speed:"速度",contact_limit:"接触力限",run_smooth:"运行（平滑）",test:"测试",test_title:"测试位姿",test_hint:"在机器人上逐个回放预录的 test_pose（速度 0.5，间隔 0.5 秒，无平滑），用于检查是否正确执行。手臂将会运动，请远离。",run_test:"运行测试",
     confirm_test:"⚠ 警告：机器人将会运动，请确保所有人远离手臂。现在运行 test_pose？",moving_warn:"⚠ 机器人运动中 — 请远离",
     hand_left:"左手",hand_right:"右手",open:"张开",close:"闭合",
     finger_pos:"手指 (0 闭合 – 255 张开)",gripper:"夹爪",opening:"开度 (0 闭合 – 100 张开)",
