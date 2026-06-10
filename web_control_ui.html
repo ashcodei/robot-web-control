@@ -613,14 +613,26 @@ function wokDispenseCustom(){
   const name=document.getElementById("w-seas").selectedOptions[0].textContent;
   wokDispense(id,w,`${name} · ${w}g`);
 }
+let _wokBusy=false;
 async function wokStatus(){
-  const j=await api('/api/wok/action','POST',{action:"GET ROBOT STATUS",payload:null});
-  let rs=null; const find=o=>{ if(o&&typeof o==="object"){ if(o.robotStatus)rs=o.robotStatus;
-    else for(const k in o) find(o[k]); } }; find(j.resp);
-  if(rs){ document.getElementById("w-angle").textContent=rs.potAngle??"—";
+  const findRs=o=>{let rs=null;const f=x=>{if(x&&typeof x==="object"){if(x.robotStatus)rs=x.robotStatus;else for(const k in x)f(x[k]);}};f(o);return rs;};
+  const findId=o=>{let id=null;const f=x=>{if(x&&typeof x==="object"){for(const k of ["commandId","id","command_id"])if(x[k]!=null&&id==null)id=x[k];for(const k in x)f(x[k]);}};f(o);return id;};
+  const apply=rs=>{if(!rs)return false;
+    document.getElementById("w-angle").textContent=rs.potAngle??"—";
     document.getElementById("w-speed").textContent=rs.potSpeed??"—";
     document.getElementById("w-power").textContent=rs.power??"—";
-    document.getElementById("w-temp").textContent=rs.temperature??"—"; }
+    document.getElementById("w-temp").textContent=rs.temperature??"—";return true;};
+  const j=await api('/api/wok/action','POST',{action:"GET ROBOT STATUS",payload:null});
+  if(apply(findRs(j.resp)))return;
+  const cid=findId(j.resp); if(cid==null)return;
+  for(let i=0;i<5;i++){ await new Promise(r=>setTimeout(r,600));
+    const c=await api('/api/wok/command','POST',{id:cid});
+    if(apply(findRs(c.resp)))return; }
+}
+async function wokStatusLoop(){
+  if(_wokBusy) return;
+  if(!(lastStatus&&lastStatus.wok&&lastStatus.wok.connected)) return;
+  _wokBusy=true; try{ await wokStatus(); } finally{ _wokBusy=false; }
 }
 
 // ───────── init ─────────
@@ -628,6 +640,7 @@ applyI18n();
 wokLoadConfig();
 poll();
 setInterval(poll,1500);
+setInterval(wokStatusLoop,5000);
 </script>
 </body>
 </html>
