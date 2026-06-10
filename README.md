@@ -20,7 +20,7 @@ on the same network, including a phone or tablet.
 ## Setup
 
 ```bash
-git clone <your-repo-url> robot-web-control
+git clone https://github.com/ashcodei/robot-web-control.git robot-web-control
 cd robot-web-control
 
 python3 -m venv .venv
